@@ -1,0 +1,19 @@
+{
+  "version": 10,
+  "configurePresets": [
+    {
+      "name": "mac-llvm",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/mac-llvm",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER" : "/opt/homebrew/opt/llvm/bin/clang++"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "mac-llvm",
+      "configurePreset": "mac-llvm"
+    }
+  ]
+}
