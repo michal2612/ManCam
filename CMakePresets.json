@@ -6,7 +6,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/mac-llvm",
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER" : "/opt/homebrew/opt/llvm/bin/clang++"
+        "CMAKE_CXX_COMPILER" : "/opt/homebrew/opt/llvm/bin/clang++",
+        "CMAKE_BUILD_TYPE" : "Debug"
       }
     }
   ],
