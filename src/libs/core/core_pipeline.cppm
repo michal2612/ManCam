@@ -1,5 +1,6 @@
 module;
 
+#include <atomic>
 #include <mutex>
 #include <thread>
 #include <queue>
@@ -23,6 +24,8 @@ namespace pipeline
         std::mutex tasksMutex;
         std::condition_variable_any tasksCv;
         std::queue<T> tasks;
+        std::atomic<bool> stopRequested{false};
+
         std::jthread queueThread;
     public:
         explicit core_pipeline() {
@@ -30,21 +33,34 @@ namespace pipeline
         }
 
         void addTask(const T& task) {
-            std::lock_guard lock(tasksMutex);
-            tasks.push(task);
+            {
+                std::lock_guard lock(tasksMutex);
+                if (stopRequested) {
+                    return;
+                }
+                tasks.push(task);
+            }
             tasksCv.notify_one();
         }
 
-        void pause() const {
-            // TO DO
+        void stop() {
+            {
+                std::lock_guard lock(tasksMutex);
+                stopRequested = true;
+            }
+            tasksCv.notify_all();  // stopping the program, notify is required
+
+            if (queueThread.joinable())
+                queueThread.join();
         }
 
-        void destroy() {
-            queueThread.join();
-            delete this;
+        ~core_pipeline() {
+            stop();
         }
 
-        ~core_pipeline() = default;
+        // don't allow copying
+        core_pipeline(const core_pipeline&) = delete;
+        core_pipeline& operator=(const core_pipeline&) = delete;
 
     private:
         void run() {
@@ -53,8 +69,8 @@ namespace pipeline
                 T task;
                 {
                     std::unique_lock lock(tasksMutex);
-                    tasksCv.wait(lock, [this]{ return !tasks.empty(); });
-                    if (tasks.empty())
+                    tasksCv.wait(lock, [this]{ return stopRequested || !tasks.empty(); });
+                    if (stopRequested && tasks.empty())
                     {
                         return;
                     }

@@ -1,6 +1,7 @@
 import core_pipeline;
 
 #include <iostream>
+#include <thread>
 
 struct example
 {
@@ -12,7 +13,7 @@ struct example
         std::cout << "I am running!" << std::endl;
         if (shouldFail)
         {
-            throw;
+            throw std::runtime_error("Task failed!");
         }
     }
 
@@ -35,7 +36,7 @@ int main() {
     p.addTask(e1);
     p.addTask(e2);
 
-    p.destroy();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     return 0;
 }
