@@ -9,11 +9,24 @@
         "CMAKE_CXX_COMPILER" : "/opt/homebrew/opt/llvm/bin/clang++",
         "CMAKE_BUILD_TYPE" : "Debug"
       }
+    },
+    {
+      "name": "mac-llvm-github",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/mac-llvm",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER" : "clang++",
+        "CMAKE_BUILD_TYPE" : "Debug"
+      }
     }
   ],
   "buildPresets": [
     {
       "name": "mac-llvm",
+      "configurePreset": "mac-llvm"
+    },
+    {
+      "name": "mac-llvm-github",
       "configurePreset": "mac-llvm"
     }
   ]
