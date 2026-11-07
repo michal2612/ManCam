@@ -8,5 +8,8 @@ if(${UNIX})
     add_compile_definitions(UNIX_LIKE)
 endif()
 
+add_subdirectory(dependencies/googletest)
+
 add_subdirectory(src/libs/core)
+add_subdirectory(src/libs/core/tests)
 add_subdirectory(src/exe/console)
