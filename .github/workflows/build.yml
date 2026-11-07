@@ -7,6 +7,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
 
+      - name: Set compiler
+        run: |
+          LLVM_PREFIX="$(brew --prefix llvm@20)"
+          echo "CXX=$LLVM_PREFIX/bin/clang++" >> $GITHUB_ENV
+          echo "$LLVM_PREFIX/bin" >> $GITHUB_PATH
+
       - run: |
           cmake --preset mac-llvm-github
           cmake --build --preset mac-llvm-github
