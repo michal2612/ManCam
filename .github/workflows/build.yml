@@ -1,0 +1,13 @@
+name: build.yml
+on:
+  push:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - run: |
+          cmake --preset mac-llvm
+          cmake --build --preset mac-llvm
+          
