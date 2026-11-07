@@ -15,7 +15,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/mac-llvm",
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER" : "$penv{CXX}",
+        "CMAKE_C_COMPILER": "$penv{CC}",
+        "CMAKE_CXX_COMPILER": "$penv{CXX}",
         "CMAKE_BUILD_TYPE" : "Debug"
       }
     }
