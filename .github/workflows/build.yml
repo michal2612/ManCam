@@ -8,6 +8,6 @@ jobs:
       - uses: actions/checkout@v7.0.1
 
       - run: |
-          cmake --preset mac-llvm
-          cmake --build --preset mac-llvm
+          cmake --preset mac-llvm-githubb
+          cmake --build --preset mac-llvm-github
           
