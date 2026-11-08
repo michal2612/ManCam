@@ -17,6 +17,8 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "$penv{CC}",
         "CMAKE_CXX_COMPILER": "$penv{CXX}",
+        "CMAKE_EXE_LINKER_FLAGS": "-L$env{LLVM_PREFIX}/lib/c++ -Wl,-rpath,$env{LLVM_PREFIX}/lib/c++",
+        "CMAKE_SHARED_LINKER_FLAGS": "-L$env{LLVM_PREFIX}/lib/c++ -Wl,-rpath,$env{LLVM_PREFIX}/lib/c++",
         "CMAKE_BUILD_TYPE" : "Debug"
       }
     }
