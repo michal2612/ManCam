@@ -30,5 +30,19 @@
       "name": "mac-llvm-github",
       "configurePreset": "mac-llvm"
     }
+  ],
+  "testPresets": [
+    {
+      "name": "mac-llvm",
+      "configurePreset": "mac-llvm",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    },
+    {
+      "name": "mac-llvm-github",
+      "configurePreset": "mac-llvm-github",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    }
   ]
 }

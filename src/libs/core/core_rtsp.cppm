@@ -10,6 +10,7 @@ module;
 // TO DO Windows
 #endif
 
+
 export module core_rtsp;
 
 namespace core_rtsp
@@ -46,7 +47,7 @@ namespace core_rtsp
                 .sin_port = socketAddress.sin_port
             };
 
-            auto result =
+            const auto result =
                 connect(socket_endpoint, reinterpret_cast<const sockaddr *>(&rtspSocketAddress), sizeof(rtspSocketAddress));
             if (result != 0)
             {

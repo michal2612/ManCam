@@ -20,4 +20,5 @@ jobs:
       - run: |
           cmake --preset mac-llvm-github
           cmake --build --preset mac-llvm-github
+          ctest --preset mac-llvm-github
           

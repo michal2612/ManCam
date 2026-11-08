@@ -5,6 +5,7 @@ module;
 #include <thread>
 #include <queue>
 #include <condition_variable>
+#include <functional>
 
 export module core_pipeline;
 
@@ -66,7 +67,7 @@ namespace pipeline
         void run() {
             while (true)
             {
-                T task;
+                T* task = nullptr;
                 {
                     std::unique_lock lock(tasksMutex);
                     tasksCv.wait(lock, [this]{ return stopRequested || !tasks.empty(); });
@@ -75,17 +76,17 @@ namespace pipeline
                         return;
                     }
 
-                    task = std::move(tasks.front());
+                    task = &tasks.front();
                     tasks.pop();
                 }
                 try
                 {
-                    task.run();
-                    task.onSuccess();
+                    task->run();
+                    task->onSuccess();
                 }
                 catch (...)
                 {
-                    task.onFailure();
+                    task->onFailure();
                 }
             }
         }
