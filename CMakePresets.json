@@ -17,9 +17,9 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "$env{CC}",
         "CMAKE_CXX_COMPILER": "$env{CXX}",
-        "CMAKE_CXX_FLAGS": "-nostdinc++ -isystem $env{LLVM_PREFIX}/include/c++/v1",
-        "CMAKE_EXE_LINKER_FLAGS": "-L$env{LLVM_PREFIX}/lib/c++ -Wl,-rpath,$env{LLVM_PREFIX}/lib/c++",
-        "CMAKE_SHARED_LINKER_FLAGS": "-L$env{LLVM_PREFIX}/lib/c++ -Wl,-rpath,$env{LLVM_PREFIX}/lib/c++",
+        "CMAKE_CXX_FLAGS": "-nostdinc++ -isystem /opt/homebrew/opt/llvm@20/include/c++/v1",
+        "CMAKE_EXE_LINKER_FLAGS": "/opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
+        "CMAKE_SHARED_LINKER_FLAGS": "/opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
         "CMAKE_BUILD_TYPE": "Debug"
       }
     }
