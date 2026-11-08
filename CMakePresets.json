@@ -17,9 +17,9 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "$env{CC}",
         "CMAKE_CXX_COMPILER": "$env{CXX}",
-        "CMAKE_CXX_FLAGS": "-nostdinc++ -isystem /opt/homebrew/opt/llvm@20/include/c++/v1",
-        "CMAKE_EXE_LINKER_FLAGS": "-nostdlib++ /opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++abi.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++experimental.a -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
-        "CMAKE_SHARED_LINKER_FLAGS": "-nostdlib++ /opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++abi.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++experimental.a -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
+        "CMAKE_CXX_FLAGS": "-nostdinc++ -isystem /opt/homebrew/opt/llvm@20/include/c++/v1 -D_LIBCPP_DISABLE_AVAILABILITY -D_LIBCPP_INLINE_VISIBILITY=\"__attribute__((__always_inline__))\"",
+        "CMAKE_EXE_LINKER_FLAGS": "-nostdlib++ /opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++abi.dylib -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
+        "CMAKE_SHARED_LINKER_FLAGS": "-nostdlib++ /opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++abi.dylib -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
         "CMAKE_BUILD_TYPE": "Debug"
       }
     }
