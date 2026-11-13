@@ -44,6 +44,7 @@ TEST(Pipeline, PipelineWithOneTask) {
     p.addTask(e2);
 
     std::unique_lock lk(mtx);
+
     cv.wait(lk, [&flag, &p]
     {
         if (flag)
@@ -52,6 +53,5 @@ TEST(Pipeline, PipelineWithOneTask) {
         }
         return flag;
     });
-
     EXPECT_EQ(number, 2);
 }

@@ -1,6 +1,7 @@
 module;
 
 #include <string>
+import core_exception;
 
 #if UNIX_LIKE
 #include <arpa/inet.h>
@@ -21,9 +22,9 @@ namespace core_rtsp
         std::string rtspHost;
 
     public:
-        // valid uri: rtsp:
-        explicit rtspReceiver(const sockaddr_in socketAddress, const std::string& rtspHost)
-            : socketAddress(socketAddress) {
+        //! Host example: rtsp://user:pass@192.168.1.1:554/Streaming/Channels/101
+        //! rtsp://<user>:<pass>@IPv4:<port>/<channel>
+        explicit rtspReceiver(std::string_view host) {
 
         }
 
@@ -62,5 +63,14 @@ namespace core_rtsp
         // don't allow copying
         rtspReceiver(const rtspReceiver&) = delete;
         rtspReceiver operator=(const rtspReceiver&) = delete;
+
+        static void validateHostName(const std::string_view& host) {
+            using namespace core_exception;
+            if (host.empty())
+                throw coreException("Given host is empty.");
+
+            if (host.substr(0, 4) != "rtsp")
+                throw coreException("Host name must start with 'rtsp'");
+        }
     };
 }

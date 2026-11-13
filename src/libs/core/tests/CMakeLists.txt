@@ -1,4 +1,5 @@
-add_executable(core_tests core_pipeline_tests.cpp)
+file(GLOB SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+add_executable(core_tests ${SRC_FILES})
 
 target_link_libraries(core_tests PRIVATE GTest::gtest_main)
 target_link_libraries(core_tests PRIVATE core)
