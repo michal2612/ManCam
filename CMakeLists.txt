@@ -6,7 +6,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(${UNIX})
     add_compile_definitions(UNIX_LIKE)
+else()
+    message(FATAL_ERROR "Only Unix systems are supported")
 endif()
+
+enable_testing()
 
 add_subdirectory(dependencies/googletest)
 

@@ -15,9 +15,12 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/mac-llvm",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "$penv{CC}",
-        "CMAKE_CXX_COMPILER": "$penv{CXX}",
-        "CMAKE_BUILD_TYPE" : "Debug"
+        "CMAKE_C_COMPILER": "$env{CC}",
+        "CMAKE_CXX_COMPILER": "$env{CXX}",
+        "CMAKE_CXX_FLAGS": "-nostdinc++ -isystem /opt/homebrew/opt/llvm@20/include/c++/v1",
+        "CMAKE_EXE_LINKER_FLAGS": "-nostdlib++ /opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++abi.dylib -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
+        "CMAKE_SHARED_LINKER_FLAGS": "-nostdlib++ /opt/homebrew/opt/llvm@20/lib/c++/libc++.dylib /opt/homebrew/opt/llvm@20/lib/c++/libc++abi.dylib -Wl,-rpath,/opt/homebrew/opt/llvm@20/lib/c++",
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     }
   ],
@@ -29,6 +32,20 @@
     {
       "name": "mac-llvm-github",
       "configurePreset": "mac-llvm"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "mac-llvm",
+      "configurePreset": "mac-llvm",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    },
+    {
+      "name": "mac-llvm-github",
+      "configurePreset": "mac-llvm-github",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
     }
   ]
 }

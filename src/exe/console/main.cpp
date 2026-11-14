@@ -24,6 +24,7 @@ struct example
     void onFailure() const {
         std::cout << "Failure!" << std::endl;
     }
+
 private:
     bool shouldFail;
 };
