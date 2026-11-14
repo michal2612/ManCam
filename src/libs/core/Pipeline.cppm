@@ -5,9 +5,8 @@ module;
 #include <thread>
 #include <queue>
 #include <condition_variable>
-#include <functional>
 
-export module core_pipeline;
+export module corePipeline;
 
 namespace pipeline
 {
@@ -20,7 +19,7 @@ namespace pipeline
     };
 
     export template<Worker T>
-    class core_pipeline
+    class Pipeline
     {
         std::mutex tasksMutex;
         std::condition_variable_any tasksCv;
@@ -29,7 +28,7 @@ namespace pipeline
 
         std::jthread queueThread;
     public:
-        explicit core_pipeline() {
+        explicit Pipeline() {
             queueThread = std::jthread([this] { run(); });
         }
 
@@ -55,13 +54,13 @@ namespace pipeline
                 queueThread.join();
         }
 
-        ~core_pipeline() {
+        ~Pipeline() {
             stop();
         }
 
         // don't allow copying
-        core_pipeline(const core_pipeline&) = delete;
-        core_pipeline& operator=(const core_pipeline&) = delete;
+        Pipeline(const Pipeline&) = delete;
+        Pipeline& operator=(const Pipeline&) = delete;
 
     private:
         void run() {

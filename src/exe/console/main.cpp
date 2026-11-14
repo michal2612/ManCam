@@ -1,4 +1,4 @@
-import core_pipeline;
+import corePipeline;
 
 #include <iostream>
 #include <thread>
@@ -33,7 +33,7 @@ int main() {
     example e1;
     example e2(true);
 
-    pipeline::core_pipeline<example> p{};
+    pipeline::Pipeline<example> p{};
     p.addTask(e1);
     p.addTask(e2);
 

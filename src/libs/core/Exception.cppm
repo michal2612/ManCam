@@ -4,16 +4,16 @@ module;
 #include <sstream>
 #include <source_location>
 
-export module core_exception;
+export module coreException;
 
 #define EXCEPTION_FORMATTING "{} [{}:{} in {}]"
 
 namespace core_exception
 {
-    export class coreException : public std::runtime_error
+    export class Exception : public std::runtime_error
     {
     public:
-        explicit coreException(const std::string &exceptionMessage,
+        explicit Exception(const std::string &exceptionMessage,
                                const std::source_location location = std::source_location::current())
             : runtime_error(formatMessage(exceptionMessage, location))
         {

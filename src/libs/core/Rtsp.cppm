@@ -1,7 +1,6 @@
 module;
 
 #include <string>
-import core_exception;
 
 #if UNIX_LIKE
 #include <arpa/inet.h>
@@ -12,7 +11,8 @@ import core_exception;
 #endif
 
 
-export module core_rtsp;
+export module coreRtsp;
+import coreException;
 
 namespace core_rtsp
 {
@@ -67,10 +67,10 @@ namespace core_rtsp
         static void validateHostName(const std::string_view& host) {
             using namespace core_exception;
             if (host.empty())
-                throw coreException("Given host is empty.");
+                throw Exception("Given host is empty.");
 
             if (host.substr(0, 4) != "rtsp")
-                throw coreException("Host name must start with 'rtsp'");
+                throw Exception("Host name must start with 'rtsp'");
         }
     };
 }

@@ -1,4 +1,4 @@
-import core_pipeline;
+import corePipeline;
 
 #include <gtest/gtest.h>
 #include <condition_variable>
@@ -39,7 +39,7 @@ TEST(Pipeline, PipelineWithOneTask) {
     const example e1(number, cv, flag);
     const example e2(number, cv, flag);
 
-    pipeline::core_pipeline<example> p{};
+    pipeline::Pipeline<example> p{};
     p.addTask(e1);
     p.addTask(e2);
 
