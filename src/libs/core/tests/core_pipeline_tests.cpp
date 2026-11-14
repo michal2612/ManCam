@@ -1,8 +1,8 @@
+import core_pipeline;
+
 #include <gtest/gtest.h>
 #include <condition_variable>
 #include <mutex>
-
-import core_pipeline;
 
 struct example
 {
