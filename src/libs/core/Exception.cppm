@@ -1,6 +1,7 @@
 module;
 
 #include <format>
+#include <functional>
 #include <sstream>
 #include <source_location>
 
@@ -28,3 +29,13 @@ namespace core_exception
     };
 }
 
+namespace
+{
+    // contract
+    template<class T>
+    T Check(T* pointer) {
+        if (!pointer)
+            throw core_exception::Exception("Null pointer");
+        return pointer;
+    }
+}

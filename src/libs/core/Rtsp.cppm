@@ -16,6 +16,21 @@ import coreException;
 
 namespace core_rtsp
 {
+    export union protocol
+    {
+
+    };
+
+    export struct rtspUrl
+    {
+        std::string_view url;
+        std::string_view username;
+        std::string_view password;
+        std::string_view ipAddress;
+        uint16_t port;
+        std::string_view channel;
+    };
+
     export class rtspReceiver
     {
         sockaddr_in socketAddress;
@@ -29,31 +44,10 @@ namespace core_rtsp
         }
 
         bool establishConnection() {
-            // check if port is open
+            // connectToServer
 #if UNIX_LIKE
-            // populate sin_addr with IP4 or IP6 in binary form
-            inet_pton(socketAddress.sin_family, rtspHost.c_str(), &socketAddress.sin_addr);
+           connectToServer();
 
-            const int socket_endpoint = socket(socketAddress.sin_family, SOCK_STREAM, 0);
-
-            if (socket_endpoint == -1)
-            {
-                // throw
-            }
-
-            // connect to server
-            const struct sockaddr_in rtspSocketAddress =
-            {
-                .sin_family = socketAddress.sin_family,
-                .sin_port = socketAddress.sin_port
-            };
-
-            const auto result =
-                connect(socket_endpoint, reinterpret_cast<const sockaddr *>(&rtspSocketAddress), sizeof(rtspSocketAddress));
-            if (result != 0)
-            {
-                // throw
-            }
 #else
             // TO DO
 #endif
@@ -64,13 +58,27 @@ namespace core_rtsp
         rtspReceiver(const rtspReceiver&) = delete;
         rtspReceiver operator=(const rtspReceiver&) = delete;
 
-        static void validateHostName(const std::string_view& host) {
-            using namespace core_exception;
-            if (host.empty())
-                throw Exception("Given host is empty.");
+    private:
+        void connectToServer() {
+            // https://man7.org/linux/man-pages/man2/socket.2.html
+            // int domain, int type, int protocol);
+            // AF_INET - IPv4, SOCK_STREAM - socket,
+            // 0 protocol,
+            // The protocol specifies a particular protocol to be used with the
+            // socket.  Normally only a single protocol exists to support a
+            // particular socket type within a given protocol family, in which
+            // case protocol can be specified as 0.  However, it is possible that
+            // many protocols may exist, in which case a particular protocol must
+            // be specified in this manner.
+            int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-            if (host.substr(0, 4) != "rtsp")
-                throw Exception("Host name must start with 'rtsp'");
+            sockaddr_in serverAddress {};
+            serverAddress.sin_family = AF_INET;
+            serverAddress.sin_port = htons(8080);
+            // to be validated
+            auto result = inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr);
+
+            result = connect(clientSocket, reinterpret_cast<sockaddr *>(&serverAddress), sizeof(serverAddress));
         }
     };
 }
